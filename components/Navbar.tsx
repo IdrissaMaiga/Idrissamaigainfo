@@ -1,13 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
 const Navbar: React.FC = () => {
-  const sections = ["projects", "about", "languages", "contact"];
-  const [activeSection, setActiveSection] = useState("about");
-  const [scrolling, setScrolling] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const sections: string[] = useMemo(() => ["projects", "about", "languages", "contact"], []);
+  const [activeSection, setActiveSection] = useState<string>("about");
+  const [scrolling, setScrolling] = useState<boolean>(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,7 +28,7 @@ const Navbar: React.FC = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [sections]);  // No need to worry about changing dependencies
 
   const handleScrollToSection = (id: string) => {
     const element = document.getElementById(id);
