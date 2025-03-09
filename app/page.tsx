@@ -1,22 +1,19 @@
+// app/page.tsx
 "use client";
 
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
-import Navbar from "../components/Navbar";
-import LanguageSection from "../components/LanguageSection";
-import ProjectSection from "../components/ProjectSection";
-import ContactSection from "../components/ContactSection";
-import AboutMe from "@/components/AboutMe";
-import ChatButton from "@/components/ChatButton";
+// Dynamically import the main component with SSR disabled
+const MainContent = dynamic(() => import("@/components/Maincontent"), {
+  ssr: false,
+  loading: () => <div>Loading...</div>,
+});
 
-export default function Home() {
+export default function Page() {
   return (
-    <>
-      <Navbar />
-      <ProjectSection />
-      <AboutMe />
-      <LanguageSection />
-      <ContactSection />
-      <ChatButton />
-    </>
+    <Suspense fallback={<div>Loading...</div>}>
+      <MainContent />
+    </Suspense>
   );
 }
