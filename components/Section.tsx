@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { SectionId } from "../lib/sectionData";
+import { SectionId } from "./sectionData";
 
 interface SectionProps {
   id: SectionId;
