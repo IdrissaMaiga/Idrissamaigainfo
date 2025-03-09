@@ -64,8 +64,8 @@ export const sectionDetails: Record<SectionId, SectionDetail> = {
     faces: ["Email", "LinkedIn", "GitHub"],
     content: {
       Email: "Email: maigadrisking@gmail.com",
-      LinkedIn: "LinkedIn: https://linkedin.com/in/yourusername",
-      GitHub: "GitHub: https://github.com/yourusername",
+      LinkedIn: "LinkedIn: https://www.linkedin.com/in/idrissa-maiga-16581b245/",
+      GitHub: "GitHub: https://github.com/IdrissaMaiga",
     },
     faceBackgrounds: {
       Email: "/logos/gmail.png",
