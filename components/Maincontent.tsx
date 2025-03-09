@@ -10,7 +10,7 @@ import Navbar from "@/components/Navbar";
 import Section from "@/components/Section";
 import Cube from "@/components/Cube";
 import SectionDetail from "@/components/sectionDetail";
-import { SectionId, sectionColors, sectionNames } from "@/components/sectionData";
+import { SectionId, sectionColors, sectionNames } from "@/lib/sectionData";
 import ChatButton from "@/components/ChatButton";
 
 export default function MainContent() {

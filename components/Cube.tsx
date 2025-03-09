@@ -5,7 +5,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import gsap from "gsap";
 import * as THREE from "three";
-import { sectionDetails, SectionId } from "./sectionData";
+import { sectionDetails, SectionId } from "../lib/sectionData";
 
 interface CubeProps {
   sectionColor: string;

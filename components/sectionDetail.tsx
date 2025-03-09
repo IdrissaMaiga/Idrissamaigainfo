@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 import { Html } from "@react-three/drei";
-import { SectionId, sectionDetails, ProjectContent } from "./sectionData";
+import { SectionId, sectionDetails, ProjectContent } from "../lib/sectionData";
 import * as THREE from "three";
 import gsap from "gsap";
 import { useThree } from "@react-three/fiber";
