@@ -17,20 +17,14 @@ import {
   FiInfo
 } from "react-icons/fi";
 import {
-  SiOracle,
   SiReact,
   SiNodedotjs,
-  SiSpring,
   SiMongodb,
   SiFirebase,
   SiExpress,
   SiSocketdotio,
-  SiMysql,
   SiTypescript,
-  SiJavascript,
   SiTailwindcss,
-  SiNginx,
-  SiDocker,
   SiStripe
 } from "react-icons/si";
 
@@ -46,8 +40,7 @@ const projects = [
       This project was developed to combine my passion for video streaming solutions with modern mobile development technologies. It presented several technical challenges, particularly in implementing adaptive video streaming with efficient caching mechanisms.
     `,
     image: "/logos/Filmu.png",
-    additionalImages: [
-    ],
+    additionalImages: [],
     imageAlt: "Filmu VOD Platform",
     techStack: [
       { name: "React Native", icon: <SiReact /> },
@@ -89,8 +82,7 @@ const projects = [
       This project was born from my interest in financial markets and the need for a reliable signals platform that traders could trust. The main goal was to create an application that delivered accurate signals while maintaining a clean, intuitive interface.
     `,
     image: "/logos/signal.png",
-    additionalImages: [
-    ],
+    additionalImages: [],
     imageAlt: "SignalApp Trading Platform",
     techStack: [
       { name: "React Native", icon: <SiReact /> },
@@ -132,8 +124,7 @@ const projects = [
       This project was created to explore the potential of integrating AI into everyday communication tools. I wanted to build a chat application that felt natural to use while providing additional utility through intelligent assistance.
     `,
     image: "/logos/kouma.png",
-    additionalImages: [
-    ],
+    additionalImages: [],
     imageAlt: "Kouma AI Chat App",
     techStack: [
       { name: "Node.js", icon: <SiNodedotjs /> },
@@ -166,26 +157,6 @@ const projects = [
     liveLink: "#"
   }
 ];
-
-// Tech stack icon mapping
-const techIconMap: { [key: string]: JSX.Element } = {
-  "Java": <SiOracle />,
-  "React": <SiReact />,
-  "React Native": <SiReact />,
-  "Node.js": <SiNodedotjs />,
-  "Spring Boot": <SiSpring />,
-  "MongoDB": <SiMongodb />,
-  "Firebase": <SiFirebase />,
-  "Express": <SiExpress />,
-  "Socket.io": <SiSocketdotio />,
-  "MySQL": <SiMysql />,
-  "TypeScript": <SiTypescript />,
-  "JavaScript": <SiJavascript />,
-  "TailwindCSS": <SiTailwindcss />,
-  "Nginx": <SiNginx />,
-  "Docker": <SiDocker />,
-  "Stripe": <SiStripe />
-};
 
 // Project section tabs
 const tabs = [
@@ -260,7 +231,7 @@ export default function DetailedProjectsSection() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [nextImage, prevImage]); // Added dependencies
 
   // Get current image source
   const getCurrentImageSrc = () => {
@@ -585,8 +556,8 @@ export default function DetailedProjectsSection() {
                       <h5 className="font-semibold mb-2 text-gray-700 dark:text-gray-300">Technology Breakdown</h5>
                       <p className="text-gray-600 dark:text-gray-400 text-sm">
                         This project leverages a {getActiveProject().techStack.some(t => t.name.includes("React")) ? "React-based" : "custom"} frontend
-                        with a {getActiveProject().techStack.some(t => t.name.includes("Node")) ? "Node.js" : getActiveProject().techStack.some(t => t.name.includes("Java")) ? "Java" : "custom"} backend.
-                        Data is stored in {getActiveProject().techStack.some(t => t.name.includes("MongoDB")) ? "MongoDB" : getActiveProject().techStack.some(t => t.name.includes("SQL")) ? "SQL database" : "a database"}.
+                        with a {getActiveProject().techStack.some(t => t.name.includes("Node")) ? "Node.js" : "custom"} backend.
+                        Data is stored in {getActiveProject().techStack.some(t => t.name.includes("MongoDB")) ? "MongoDB" : getActiveProject().techStack.some(t => t.name.includes("Firebase")) ? "Firebase" : "a database"}.
                         The architecture follows modern best practices for scalability and maintainability.
                       </p>
                     </div>

@@ -7,7 +7,7 @@ type Theme = "dark" | "light" | "system";
 type ThemeProviderProps = {
   children: React.ReactNode;
   defaultTheme?: Theme;
-  attribute?: string;
+  attribute?: string; // e.g., "class" or "data-theme"
   enableSystem?: boolean;
 };
 
@@ -34,21 +34,26 @@ export function ThemeProvider({
 
   useEffect(() => {
     const root = window.document.documentElement;
-    
-    // Remove old classes
-    root.classList.remove("light", "dark");
 
-    // Add the appropriate class based on theme
+    // Determine the theme to apply
+    let appliedTheme = theme;
     if (theme === "system" && enableSystem) {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+      appliedTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light";
-      root.classList.add(systemTheme);
-      return;
     }
-    
-    root.classList.add(theme);
-  }, [theme, enableSystem]);
+
+    // Apply theme based on attribute type
+    if (attribute === "class") {
+      // Remove old classes and add new one
+      root.classList.remove("light", "dark");
+      root.classList.add(appliedTheme);
+    } else {
+      // Remove old data attribute and set new one
+      root.removeAttribute(attribute);
+      root.setAttribute(attribute, appliedTheme);
+    }
+  }, [theme, enableSystem, attribute]); // Include attribute in dependencies
 
   // Initialize theme from local storage if available
   useEffect(() => {
@@ -68,19 +73,23 @@ export function ThemeProvider({
     if (!enableSystem) return;
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    
+
     const handleChange = () => {
       if (theme === "system") {
-        document.documentElement.classList.remove("light", "dark");
-        document.documentElement.classList.add(
-          mediaQuery.matches ? "dark" : "light"
-        );
+        const systemTheme = mediaQuery.matches ? "dark" : "light";
+        if (attribute === "class") {
+          document.documentElement.classList.remove("light", "dark");
+          document.documentElement.classList.add(systemTheme);
+        } else {
+          document.documentElement.removeAttribute(attribute);
+          document.documentElement.setAttribute(attribute, systemTheme);
+        }
       }
     };
 
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [theme, enableSystem]);
+  }, [theme, enableSystem, attribute]); // Include attribute in dependencies
 
   const value = {
     theme,

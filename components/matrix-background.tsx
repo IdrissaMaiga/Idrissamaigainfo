@@ -10,11 +10,11 @@ interface MatrixBackgroundProps {
   speed?: number;
 }
 
-export default function MatrixBackground({ 
-  opacity = 0.1, 
+export default function MatrixBackground({
+  opacity = 0.1,
   lightModeOpacity = 0.08,
   darkModeOpacity = 0.15,
-  speed = 1
+  speed = 1,
 }: MatrixBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { theme } = useTheme();
@@ -46,7 +46,8 @@ export default function MatrixBackground({
     }
 
     // Use more programming-related characters
-    const matrix = "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz{}[]()<>=-+*/&|!?:;._$#";
+    const matrix =
+      "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz{}[]()<>=-+*/&|!?:;._$#";
     let requestId: number;
 
     // Render the matrix rain
@@ -57,10 +58,11 @@ export default function MatrixBackground({
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Choose character color based on theme
-      ctx.fillStyle = theme === "dark" 
-        ? "rgba(59, 130, 246, 0.9)" // Blue with higher opacity in dark mode
-        : "rgba(29, 78, 216, 0.8)";  // Darker blue with higher opacity in light mode
-      
+      ctx.fillStyle =
+        theme === "dark"
+          ? "rgba(59, 130, 246, 0.9)" // Blue with higher opacity in dark mode
+          : "rgba(29, 78, 216, 0.8)"; // Darker blue with higher opacity in light mode
+
       ctx.font = `${fontSize}px monospace`;
 
       // Draw characters
@@ -93,18 +95,13 @@ export default function MatrixBackground({
     };
   }, [theme, opacity, lightModeOpacity, darkModeOpacity, speed]);
 
-  // Calculate the appropriate opacity based on theme
-  const currentOpacity = theme === "dark" 
-    ? (opacity * darkModeOpacity) 
-    : (opacity * lightModeOpacity);
-
   return (
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none"
-      style={{ 
-        opacity: theme === "dark" ? darkModeOpacity : lightModeOpacity, 
-        zIndex: -1 
+      style={{
+        opacity: theme === "dark" ? darkModeOpacity : lightModeOpacity,
+        zIndex: -1,
       }}
     />
   );
