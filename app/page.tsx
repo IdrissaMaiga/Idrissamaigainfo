@@ -6,7 +6,7 @@ import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
 import ChatButton from "@/components/chat-button";
 import MatrixBackground from "@/components/matrix-background";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/navbar-section";
 import HeroSection from "@/components/hero-section";
 
 export default function Home() {
