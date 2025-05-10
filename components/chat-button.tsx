@@ -188,9 +188,6 @@ export default function ChatButton() {
           const updatedMessages = [...prevMessages];
           const currentChar = fullText[currentIndex - 1];
           
-          // Check if we need a longer pause after punctuation
-          const needsPause = currentIndex > 0 && /[.,!?;:]/.test(currentChar);
-          
           // Update the streaming message
           updatedMessages[messageIndex] = {
             ...updatedMessages[messageIndex],
@@ -333,7 +330,7 @@ export default function ChatButton() {
             if (part.startsWith('```') && part.endsWith('```')) {
               const match = part.match(/```(.+?)\n([\s\S]*?)```/);
               if (match) {
-                const [_, lang, code] = match;
+                const [, lang, code] = match; // Changed _ to explicit unused variable
                 return (
                   <div key={i}>
                     <div className="mt-2 mb-1 text-xs font-semibold text-gray-200">{lang}</div>
@@ -341,7 +338,7 @@ export default function ChatButton() {
                       className="bg-gray-800 text-gray-100 p-3 rounded-md font-mono overflow-x-auto"
                       style={{ fontSize: `${Math.max(fontSize - 2, 10)}px` }}
                     >
-                      {code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+                      {code.replace(/</g, '<').replace(/>/g, '>')}
                     </div>
                   </div>
                 );

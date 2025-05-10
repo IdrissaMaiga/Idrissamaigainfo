@@ -2,22 +2,30 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+// Define interface for request body
+interface ContactForm {
+  name: string;
+  email: string;
+  subject?: string;
+  message: string;
+}
+
 // Simple input validation function
-const validateInput = (body: any) => {
+const validateInput = (body: ContactForm) => {
   const errors = [];
   
   if (!body.name || typeof body.name !== 'string' || body.name.trim() === '') {
-    errors.push("Name is required");
+    errors.push('Name is required');
   }
   
   if (!body.email || typeof body.email !== 'string' || body.email.trim() === '') {
-    errors.push("Email is required");
+    errors.push('Email is required');
   } else if (!/^\S+@\S+\.\S+$/.test(body.email)) {
-    errors.push("Invalid email address");
+    errors.push('Invalid email address');
   }
   
   if (!body.message || typeof body.message !== 'string' || body.message.trim() === '') {
-    errors.push("Message is required");
+    errors.push('Message is required');
   }
   
   return errors.length > 0 ? errors[0] : null;
@@ -31,14 +39,14 @@ export async function POST(req: Request) {
     console.log('EMAIL_PASS exists:', !!process.env.EMAIL_PASS);
     
     // Parse request body
-    let body;
+    let body: ContactForm;
     try {
       body = await req.json();
       console.log('Request body parsed successfully');
     } catch (e) {
       console.error('Error parsing JSON:', e);
       return NextResponse.json(
-        { error: "Invalid request body" },
+        { error: 'Invalid request body' },
         { status: 400 }
       );
     }
@@ -60,7 +68,7 @@ export async function POST(req: Request) {
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
       console.error('Email configuration missing');
       return NextResponse.json(
-        { error: "Server configuration error - contact the site administrator" },
+        { error: 'Server configuration error - contact the site administrator' },
         { status: 500 }
       );
     }
@@ -79,7 +87,7 @@ export async function POST(req: Request) {
     } catch (e) {
       console.error('Error creating transporter:', e);
       return NextResponse.json(
-        { error: "Error setting up email service" },
+        { error: 'Error setting up email service' },
         { status: 500 }
       );
     }
@@ -87,8 +95,8 @@ export async function POST(req: Request) {
     // Email content
     const mailOptions = {
       from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-      to: "maigadrisking@gmail.com",
-      subject: subject ? `Portfolio Contact: ${subject}` : "New message from portfolio",
+      to: 'maigadrisking@gmail.com',
+      subject: subject ? `Portfolio Contact: ${subject}` : 'New message from portfolio',
       replyTo: email,
       text: `
         Name: ${name}
@@ -121,7 +129,7 @@ export async function POST(req: Request) {
     } catch (emailError) {
       console.error('Error sending email:', emailError);
       return NextResponse.json(
-        { error: "Failed to send email. Please try again later or contact me directly at maigadrisking@gmail.com" },
+        { error: 'Failed to send email. Please try again later or contact me directly at maigadrisking@gmail.com' },
         { status: 500 }
       );
     }
@@ -129,14 +137,14 @@ export async function POST(req: Request) {
     // Return success response
     return NextResponse.json({ 
       success: true,
-      message: "Message sent successfully! I'll get back to you soon."
+      message: 'Message sent successfully! I\'ll get back to you soon.'
     });
   } catch (error) {
     console.error('Contact form error:', error);
     
     // Generic error response
     return NextResponse.json(
-      { error: "Something went wrong. Please try again later." },
+      { error: 'Something went wrong. Please try again later.' },
       { status: 500 }
     );
   }
