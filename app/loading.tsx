@@ -4,17 +4,19 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FiCode, FiCpu, FiServer } from "react-icons/fi";
 
+// Define loadingTexts outside the component
+const loadingTexts = [
+  "Initializing...",
+  "Loading modules...",
+  "Compiling components...",
+  "Processing data...",
+  "Finalizing setup...",
+  "Almost ready..."
+];
+
 export default function Loading() {
   const [progress, setProgress] = useState(0);
   const [loadingText, setLoadingText] = useState("Initializing...");
-  const loadingTexts = [
-    "Initializing...",
-    "Loading modules...",
-    "Compiling components...",
-    "Processing data...",
-    "Finalizing setup...",
-    "Almost ready..."
-  ];
 
   useEffect(() => {
     // Simulate loading progress
@@ -38,7 +40,7 @@ export default function Loading() {
     }, 120);
 
     return () => clearInterval(interval);
-  }, []);
+  }, []); // Removed loadingTexts from dependency array
 
   // Binary digit animation for matrix effect
   const BinaryDigits = () => {

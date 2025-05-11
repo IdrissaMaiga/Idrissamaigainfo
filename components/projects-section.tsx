@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { 
@@ -176,22 +176,22 @@ export default function DetailedProjectsSection() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const projectSectionRef = useRef<HTMLDivElement>(null);
 
-  const getActiveProject = () => {
+  const getActiveProject = useCallback(() => {
     return projects.find(project => project.id === activeProject) || projects[0];
-  };
+  }, [activeProject]); // Removed projects from dependency array
 
   // Image carousel controls
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     const project = getActiveProject();
     const totalImages = project.additionalImages.length + 1; // +1 for main image
     setCurrentImageIndex((prev) => (prev + 1) % totalImages);
-  };
+  }, [getActiveProject]);
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     const project = getActiveProject();
     const totalImages = project.additionalImages.length + 1;
     setCurrentImageIndex((prev) => (prev - 1 + totalImages) % totalImages);
-  };
+  }, [getActiveProject]);
 
   // Handle touch events for swipe
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -231,7 +231,7 @@ export default function DetailedProjectsSection() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [nextImage, prevImage]); // Added dependencies
+  }, [nextImage, prevImage]);
 
   // Get current image source
   const getCurrentImageSrc = () => {

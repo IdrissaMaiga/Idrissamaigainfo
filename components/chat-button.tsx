@@ -31,7 +31,7 @@ export default function ChatButton() {
   const [userMessage, setUserMessage] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([
     { 
-      text: "Hello! I'm Idrissa's assistant. How can I help you today?", 
+      text: "Hello! I\'m Idrissa\'s assistant. How can I help you today?", 
       sender: "AI",
       timestamp: Date.now()
     },
@@ -186,7 +186,6 @@ export default function ChatButton() {
         // Update the message with one more character
         setMessages(prevMessages => {
           const updatedMessages = [...prevMessages];
-          const currentChar = fullText[currentIndex - 1];
           
           // Update the streaming message
           updatedMessages[messageIndex] = {
@@ -202,8 +201,7 @@ export default function ChatButton() {
         currentIndex++;
         
         // Schedule the next character with variable timing
-        const currentChar = fullText[currentIndex - 2]; // Previous character
-        const delay = currentChar && /[.,!?;:]/.test(currentChar) 
+        const delay = currentIndex > 1 && /[.,!?;:]/.test(fullText[currentIndex - 2]) 
           ? punctuationPause 
           : streamingSpeed;
           
@@ -330,7 +328,7 @@ export default function ChatButton() {
             if (part.startsWith('```') && part.endsWith('```')) {
               const match = part.match(/```(.+?)\n([\s\S]*?)```/);
               if (match) {
-                const [, lang, code] = match; // Changed _ to explicit unused variable
+                const [, lang, code] = match;
                 return (
                   <div key={i}>
                     <div className="mt-2 mb-1 text-xs font-semibold text-gray-200">{lang}</div>
@@ -400,7 +398,7 @@ export default function ChatButton() {
             <div className="p-4 bg-blue-600 dark:bg-blue-700 text-white flex justify-between items-center">
               <div className="flex items-center">
                 <FiTerminal className="w-5 h-5 mr-2" />
-                <span className="font-medium text-lg">Idrissa's Assistant</span>
+                <span className="font-medium text-lg">Idrissa\'s Assistant</span>
               </div>
               <div className="flex items-center space-x-2">
                 <button 
