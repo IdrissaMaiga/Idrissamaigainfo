@@ -1,3 +1,4 @@
+"use client";
 
 import AboutSection from "@/components/about-section";
 import ProjectsSection from "@/components/projects-section";
@@ -11,23 +12,30 @@ import HeroSection from "@/components/hero-section";
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative">
+    <main className="min-h-screen relative overflow-x-hidden">
       {/* Programming-themed matrix background */}
-      <MatrixBackground />
-      
+      <MatrixBackground
+        opacity={0.1}
+        lightModeOpacity={0.08}
+        darkModeOpacity={0.15}
+        speed={0.8} // Slightly slower speed for mobile
+      />
+
       {/* Navbar */}
       <Navbar />
-      
-      {/* Main Sections */}
-      <HeroSection />
-      <AboutSection />
-      <ProjectsSection />
-      <SkillsSection />
-      <ContactSection />
-      
+
+      {/* Main Sections with responsive container */}
+    
+        <HeroSection />
+        <AboutSection />
+        <ProjectsSection />
+        <SkillsSection />
+        <ContactSection />
+     
+
       {/* Footer */}
       <Footer />
-      
+
       {/* Interactive Chat Button */}
       <ChatButton />
     </main>

@@ -2,18 +2,18 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  FiMessageCircle, 
-  FiSend, 
-  FiX, 
-  FiUser, 
-  FiCode, 
-  FiTerminal, 
-  FiClipboard, 
-  FiCheckCircle, 
+import {
+  FiMessageCircle,
+  FiSend,
+  FiX,
+  FiUser,
+  FiCode,
+  FiTerminal,
+  FiClipboard,
+  FiCheckCircle,
   FiTrash2,
   FiMaximize,
-  FiMinimize 
+  FiMinimize,
 } from "react-icons/fi";
 
 interface Message {
@@ -30,10 +30,10 @@ export default function ChatButton() {
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [userMessage, setUserMessage] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([
-    { 
-      text: "Hello! I\'m Idrissa\'s assistant. How can I help you today?", 
+    {
+      text: "Hello! I'm Idrissa's assistant. How can I help you today?",
       sender: "AI",
-      timestamp: Date.now()
+      timestamp: Date.now(),
     },
   ]);
   const [isTyping, setIsTyping] = useState<boolean>(false);
@@ -58,7 +58,7 @@ export default function ChatButton() {
         console.error("Failed to parse saved messages", e);
       }
     }
-    
+
     // Load font size preference if available
     const savedFontSize = localStorage.getItem("chatFontSize");
     if (savedFontSize) {
@@ -69,17 +69,16 @@ export default function ChatButton() {
   // Save messages to localStorage when they change
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Only save completed messages (not streaming ones)
-      const completedMessages = messages.map(msg => ({
+      const completedMessages = messages.map((msg) => ({
         ...msg,
         text: msg.fullText || msg.text,
         isStreaming: false,
-        fullText: undefined // Don't need to store this in localStorage
+        fullText: undefined,
       }));
       localStorage.setItem("chatMessages", JSON.stringify(completedMessages));
     }
   }, [messages]);
-  
+
   // Save font size preference
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -89,9 +88,9 @@ export default function ChatButton() {
 
   // Scroll to the latest message
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+    if (messagesEndRef.current) weakenAnimation(() => {
+      messagesEndRef.current!.scrollIntoView({ behavior: "smooth" });
+    });
   }, [messages]);
 
   // Focus the input when chat is opened
@@ -115,12 +114,12 @@ export default function ChatButton() {
 
   // Adjust textarea height based on content
   const adjustTextareaHeight = (textarea: HTMLTextAreaElement) => {
-    textarea.style.height = 'auto';
-    textarea.style.height = `${Math.min(textarea.scrollHeight, 150)}px`;
+    textarea.style.height = "auto";
+    textarea.style.height = `${Math.min(textarea.scrollHeight, 120)}px`; // Reduced max height for mobile
   };
 
   const toggleChat = () => setIsChatOpen((prev) => !prev);
-  
+
   const toggleFullscreen = () => setIsFullscreen((prev) => !prev);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -139,11 +138,11 @@ export default function ChatButton() {
   // Copy chat history
   const copyChat = () => {
     if (!chatHistory.current) return;
-    
-    const chatText = messages.map(msg => 
-      `${msg.sender}: ${msg.fullText || msg.text}`
-    ).join('\n\n');
-    
+
+    const chatText = messages
+      .map((msg) => `${msg.sender}: ${msg.fullText || msg.text}`)
+      .join("\n\n");
+
     navigator.clipboard.writeText(chatText);
     setShowCopied(true);
     setTimeout(() => setShowCopied(false), 2000);
@@ -151,75 +150,67 @@ export default function ChatButton() {
 
   // Clear chat history
   const clearChat = () => {
-    const initialMessage: Message = { 
-      text: "Chat history cleared. How can I help you today?", 
+    const initialMessage: Message = {
+      text: "Chat history cleared. How can I help you today?",
       sender: "AI",
-      timestamp: Date.now()
+      timestamp: Date.now(),
     };
     setMessages([initialMessage]);
   };
-  
+
   // Increase font size
   const increaseFontSize = () => {
-    setFontSize(prev => Math.min(prev + 2, 24)); // Max font size is 24px
+    setFontSize((prev) => Math.min(prev + 2, 20)); // Reduced max font size for mobile
   };
-  
+
   // Decrease font size
   const decreaseFontSize = () => {
-    setFontSize(prev => Math.max(prev - 2, 12)); // Min font size is 12px
+    setFontSize((prev) => Math.max(prev - 2, 12)); // Min font size
   };
 
   // Format timestamp
   const formatTime = (timestamp: number): string => {
     const date = new Date(timestamp);
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
   // Stream text character by character
   const streamText = (fullText: string, messageIndex: number) => {
     let currentIndex = 0;
-    const streamingSpeed = 30; // Milliseconds per character (adjust for speed)
-    const punctuationPause = 150; // Longer pause after punctuation
-    
+    const streamingSpeed = 30;
+    const punctuationPause = 150;
+
     const streamNextChar = () => {
       if (currentIndex <= fullText.length) {
-        // Update the message with one more character
-        setMessages(prevMessages => {
+        setMessages((prevMessages) => {
           const updatedMessages = [...prevMessages];
-          
-          // Update the streaming message
           updatedMessages[messageIndex] = {
             ...updatedMessages[messageIndex],
             text: fullText.substring(0, currentIndex),
             fullText: fullText,
-            isStreaming: currentIndex < fullText.length
+            isStreaming: currentIndex < fullText.length,
           };
-          
           return updatedMessages;
         });
-        
+
         currentIndex++;
-        
-        // Schedule the next character with variable timing
-        const delay = currentIndex > 1 && /[.,!?;:]/.test(fullText[currentIndex - 2]) 
-          ? punctuationPause 
-          : streamingSpeed;
-          
+        const delay =
+          currentIndex > 1 && /[.,!?;:]/.test(fullText[currentIndex - 2])
+            ? punctuationPause
+            : streamingSpeed;
         streamingTimerRef.current = setTimeout(streamNextChar, delay);
       } else {
-        // Streaming finished
-        setMessages(prevMessages => {
+        setMessages((prevMessages) => {
           const updatedMessages = [...prevMessages];
           updatedMessages[messageIndex] = {
             ...updatedMessages[messageIndex],
-            isStreaming: false
+            isStreaming: false,
           };
           return updatedMessages;
         });
       }
     };
-    
-    // Start streaming
+
     streamNextChar();
   };
 
@@ -229,7 +220,7 @@ export default function ChatButton() {
     const userMsg: Message = {
       text: userMessage,
       sender: "User",
-      timestamp: Date.now()
+      timestamp: Date.now(),
     };
 
     const newMessages = [...messages, userMsg];
@@ -238,71 +229,64 @@ export default function ChatButton() {
     setIsTyping(true);
 
     if (inputRef.current) {
-      inputRef.current.style.height = 'auto';
+      inputRef.current.style.height = "auto";
     }
 
     try {
-      // Send the message to the API endpoint
-      const response = await fetch('/api/ai', {
-        method: 'POST',
+      const response = await fetch("/api/ai", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ userCommand: userMessage }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to get AI response');
+        throw new Error("Failed to get AI response");
       }
 
       const data = await response.json();
-      
-      // Check if data has a response field
+
       if (!data.response) {
-        throw new Error('Invalid response format');
+        throw new Error("Invalid response format");
       }
-      
-      // Determine if the response might contain code
-      const containsCode = 
-        userMessage.toLowerCase().includes('code') || 
-        userMessage.toLowerCase().includes('example') ||
-        data.response.includes('```');
-      
-      // Add the initial AI response (will be streamed)
+
+      const containsCode =
+        userMessage.toLowerCase().includes("code") ||
+        userMessage.toLowerCase().includes("example") ||
+        data.response.includes("```");
+
       const aiResponseIndex = newMessages.length;
       setMessages([
-        ...newMessages, 
-        { 
-          text: "", // Start with empty text that will be streamed
-          fullText: data.response, // Store the full response for streaming
-          sender: "AI", 
+        ...newMessages,
+        {
+          text: "",
+          fullText: data.response,
+          sender: "AI",
           timestamp: Date.now(),
           code: containsCode,
-          isStreaming: true
-        }
+          isStreaming: true,
+        },
       ]);
-      
-      // Set notification badge for when chat is closed
+
       if (!isChatOpen) {
         setHasUnreadMessage(true);
       }
-      
-      // Start streaming text effect
+
       setTimeout(() => {
         streamText(data.response, aiResponseIndex);
       }, 500);
-      
     } catch (error) {
       console.error("Error processing message:", error);
       setMessages([
         ...newMessages,
-        { 
-          text: "Sorry, I encountered an error processing your request. Please try again later.", 
-          sender: "AI", 
-          timestamp: Date.now() 
+        {
+          text: "Sorry, I encountered an error processing your request. Please try again later.",
+          sender: "AI",
+          timestamp: Date.now(),
         },
       ]);
-      
+
       if (!isChatOpen) {
         setHasUnreadMessage(true);
       }
@@ -311,32 +295,30 @@ export default function ChatButton() {
     }
   };
 
-  // Render message content with code formatting if needed
+  // Render message content with code formatting
   const renderMessageContent = (message: Message) => {
     const textToRender = message.text;
-    
-    // Show a blinking cursor at the end if still streaming
+
     const cursorElement = message.isStreaming ? (
       <span className="inline-block w-2 h-4 ml-0.5 bg-blue-400 dark:bg-blue-300 animate-pulse"></span>
     ) : null;
-    
-    if (message.code && textToRender.includes('```')) {
-      // Parse markdown code blocks with improved styling
+
+    if (message.code && textToRender.includes("```")) {
       return (
         <div className="whitespace-pre-wrap" style={{ fontSize: `${fontSize}px` }}>
           {textToRender.split(/(```[\s\S]*?```)/g).map((part, i) => {
-            if (part.startsWith('```') && part.endsWith('```')) {
+            if (part.startsWith("```") && part.endsWith("```")) {
               const match = part.match(/```(.+?)\n([\s\S]*?)```/);
               if (match) {
                 const [, lang, code] = match;
                 return (
                   <div key={i}>
                     <div className="mt-2 mb-1 text-xs font-semibold text-gray-200">{lang}</div>
-                    <div 
-                      className="bg-gray-800 text-gray-100 p-3 rounded-md font-mono overflow-x-auto"
+                    <div
+                      className="bg-gray-800 text-gray-100 p-2 sm:p-3 rounded-md font-mono overflow-x-auto"
                       style={{ fontSize: `${Math.max(fontSize - 2, 10)}px` }}
                     >
-                      {code.replace(/</g, '<').replace(/>/g, '>')}
+                      {code.replace(/</g, "<").replace(/>/g, ">")}
                     </div>
                   </div>
                 );
@@ -349,7 +331,7 @@ export default function ChatButton() {
         </div>
       );
     }
-    
+
     return (
       <div className="whitespace-pre-wrap" style={{ fontSize: `${fontSize}px` }}>
         {textToRender}
@@ -358,152 +340,180 @@ export default function ChatButton() {
     );
   };
 
+  // Weaken animations for mobile devices
+  const weakenAnimation = (callback: () => void) => {
+    if (window.innerWidth < 640) {
+      // Reduce animation intensity or skip for mobile
+      callback();
+    } else {
+      callback();
+    }
+  };
+
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-4 right-4 z-50">
       {/* Chat Button with notification badge */}
       <motion.button
         onClick={toggleChat}
-        className="fixed bottom-6 right-6 z-50 p-4 rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        className="fixed bottom-4 right-4 z-50 p-3 sm:p-4 rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 1 }}
         aria-label="Open chat"
-        style={{ 
-          boxShadow: '0 0 15px rgba(37, 99, 235, 0.5)',
-          transform: 'scale(1.1)'
-        }}
+        style={{ boxShadow: "0 0 15px rgba(37, 99, 235, 0.5)" }}
       >
-        <FiMessageCircle className="w-6 h-6 text-white" />
+        <FiMessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
         {hasUnreadMessage && (
-          <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">1</span>
+          <span className="absolute -top-1 -right-1 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+            1
+          </span>
         )}
       </motion.button>
 
-      {/* Chat Panel with improved visibility */}
+      {/* Chat Panel */}
       <AnimatePresence>
         {isChatOpen && (
           <motion.div
             className={`fixed z-50 bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-2xl flex flex-col ${
-              isFullscreen 
-                ? "inset-4 md:inset-16" 
-                : "bottom-24 right-6 w-80 sm:w-96 md:w-[450px]"
+              isFullscreen
+                ? "inset-2 sm:inset-4 md:inset-16"
+                : "bottom-16 right-4 w-[90vw] max-w-[360px] sm:w-96 md:w-[450px]"
             }`}
             initial={{ scale: 0.8, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            style={{ boxShadow: '0 0 25px rgba(0, 0, 0, 0.2)' }}
+            style={{ boxShadow: "0 0 25px rgba(0, 0, 0, 0.2)" }}
           >
             {/* Chat Header */}
-            <div className="p-4 bg-blue-600 dark:bg-blue-700 text-white flex justify-between items-center">
+            <div className="p-3 sm:p-4 bg-blue-600 dark:bg-blue-700 text-white flex justify-between items-center">
               <div className="flex items-center">
-                <FiTerminal className="w-5 h-5 mr-2" />
-                <span className="font-medium text-lg">Idrissa\'s Assistant</span>
+                <FiTerminal className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                <span className="font-medium text-base sm:text-lg">Idrissa's Assistant</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <button 
-                  onClick={decreaseFontSize} 
-                  className="p-1.5 hover:bg-white/20 rounded-full transition-colors"
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <button
+                  onClick={decreaseFontSize}
+                  className="p-1 sm:p-1.5 hover:bg-white/20 rounded-full transition-colors"
                   aria-label="Decrease text size"
                   title="Decrease text size"
                 >
                   <span className="text-xs font-bold">A-</span>
                 </button>
-                <button 
-                  onClick={increaseFontSize} 
-                  className="p-1.5 hover:bg-white/20 rounded-full transition-colors"
+                <button
+                  onClick={increaseFontSize}
+                  className="p-1 sm:p-1.5 hover:bg-white/20 rounded-full transition-colors"
                   aria-label="Increase text size"
                   title="Increase text size"
                 >
                   <span className="text-xs font-bold">A+</span>
                 </button>
-                <button 
-                  onClick={copyChat} 
-                  className="p-1.5 hover:bg-white/20 rounded-full transition-colors"
+                <button
+                  onClick={copyChat}
+                  className="p-1 sm:p-1.5 hover:bg-white/20 rounded-full transition-colors"
                   aria-label="Copy chat"
                   title="Copy chat history"
                 >
-                  {showCopied ? <FiCheckCircle className="w-4 h-4" /> : <FiClipboard className="w-4 h-4" />}
+                  {showCopied ? (
+                    <FiCheckCircle className="w-3 h-3 sm:w-4 sm:h-4" />
+                  ) : (
+                    <FiClipboard className="w-3 h-3 sm:w-4 sm:h-4" />
+                  )}
                 </button>
-                <button 
-                  onClick={clearChat} 
-                  className="p-1.5 hover:bg-white/20 rounded-full transition-colors"
+                <button
+                  onClick={clearChat}
+                  className="p-1 sm:p-1.5 hover:bg-white/20 rounded-full transition-colors"
                   aria-label="Clear chat"
                   title="Clear chat history"
                 >
-                  <FiTrash2 className="w-4 h-4" />
+                  <FiTrash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                 </button>
                 <button
                   onClick={toggleFullscreen}
-                  className="p-1.5 hover:bg-white/20 rounded-full transition-colors"
+                  className="p-1 sm:p-1.5 hover:bg-white/20 rounded-full transition-colors"
                   aria-label={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
                   title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
                 >
-                  {isFullscreen ? <FiMinimize className="w-4 h-4" /> : <FiMaximize className="w-4 h-4" />}
+                  {isFullscreen ? (
+                    <FiMinimize className="w-3 h-3 sm:w-4 sm:h-4" />
+                  ) : (
+                    <FiMaximize className="w-3 h-3 sm:w-4 sm:h-4" />
+                  )}
                 </button>
-                <button 
-                  onClick={toggleChat} 
-                  className="p-1.5 hover:bg-white/20 rounded-full transition-colors"
+                <button
+                  onClick={toggleChat}
+                  className="p-1 sm:p-1.5 hover:bg-white/20 rounded-full transition-colors"
                   aria-label="Close chat"
                   title="Close chat"
                 >
-                  <FiX className="w-5 h-5" />
+                  <FiX className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
               </div>
             </div>
 
-            {/* Messages Area with improved contrast */}
-            <div 
-              className={`flex-1 p-4 overflow-y-auto ${
-                isFullscreen ? "max-h-full" : "max-h-[500px]"
+            {/* Messages Area */}
+            <div
+              className={`flex-1 p-3 sm:p-4 overflow-y-auto ${
+                isFullscreen ? "max-h-full" : "max-h-[400px] sm:max-h-[500px]"
               } bg-gray-50 dark:bg-gray-800`}
               ref={chatHistory}
-              style={{ scrollbarWidth: 'thin', scrollbarColor: '#4B5563 transparent' }}
+              style={{ scrollbarWidth: "thin", scrollbarColor: "#4B5563 transparent" }}
             >
               {messages.map((message, index) => (
                 <div
                   key={index}
-                  className={`p-4 rounded-lg mb-4 ${
+                  className={`p-3 sm:p-4 rounded-lg mb-3 sm:mb-4 ${
                     message.sender === "AI"
-                      ? "bg-blue-600 dark:bg-blue-700 text-white ml-0 mr-auto max-w-[90%]"
+                      ? "bg-blue-600 dark:bg-blue-700 text-white ml-0 mr-auto max-w-[85%]"
                       : "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white ml-auto mr-0 max-w-[85%]"
                   }`}
-                  style={{ boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)' }}
+                  style={{ boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)" }}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center text-sm opacity-80">
+                    <div className="flex items-center text-xs sm:text-sm opacity-80">
                       {message.sender === "AI" ? (
-                        <><FiCode className="mr-1" /> Assistant</>
+                        <>
+                          <FiCode className="mr-1 w-3 h-3 sm:w-4 sm:h-4" /> Assistant
+                        </>
                       ) : (
-                        <><FiUser className="mr-1" /> You</>
+                        <>
+                          <FiUser className="mr-1 w-3 h-3 sm:w-4 sm:h-4" /> You
+                        </>
                       )}
                     </div>
-                    <div className="text-xs opacity-70">
-                      {formatTime(message.timestamp)}
-                    </div>
+                    <div className="text-xs opacity-70">{formatTime(message.timestamp)}</div>
                   </div>
                   {renderMessageContent(message)}
                 </div>
               ))}
 
               {isTyping && (
-                <div className="p-4 rounded-lg mb-4 max-w-[90%] bg-blue-600 dark:bg-blue-700 text-white ml-0">
-                  <div className="flex items-center mb-2 text-sm opacity-80">
-                    <FiCode className="mr-1" /> Assistant
+                <div className="p-3 sm:p-4 rounded-lg mb-3 sm:mb-4 max-w-[85%] bg-blue-600 dark:bg-blue-700 text-white ml-0">
+                  <div className="flex items-center mb-2 text-xs sm:text-sm opacity-80">
+                    <FiCode className="mr-1 w-3 h-3 sm:w-4 sm:h-4" /> Assistant
                   </div>
                   <div className="flex space-x-2 p-2">
-                    <div className="w-2.5 h-2.5 rounded-full bg-white animate-bounce" style={{ animationDelay: "0ms" }}></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-white animate-bounce" style={{ animationDelay: "200ms" }}></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-white animate-bounce" style={{ animationDelay: "400ms" }}></div>
+                    <div
+                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white animate-bounce"
+                      style={{ animationDelay: "0ms" }}
+                    ></div>
+                    <div
+                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white animate-bounce"
+                      style={{ animationDelay: "200ms" }}
+                    ></div>
+                    <div
+                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white animate-bounce"
+                      style={{ animationDelay: "400ms" }}
+                    ></div>
                   </div>
                 </div>
               )}
-              
+
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input Area with improved styling */}
-            <div className="p-4 border-t-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 flex items-end">
+            {/* Input Area */}
+            <div className="p-3 sm:p-4 border-t-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 flex items-end">
               <textarea
                 ref={inputRef}
                 value={userMessage}
@@ -511,50 +521,49 @@ export default function ChatButton() {
                 onKeyDown={handleKeyDown}
                 placeholder="Type your message..."
                 rows={1}
-                className="flex-1 resize-none outline-none bg-transparent text-gray-900 dark:text-white py-2 px-1 mr-3 border-b border-gray-300 dark:border-gray-700 focus:border-blue-500 transition-colors"
-                style={{ 
-                  minHeight: '44px',
-                  fontSize: `${fontSize}px`
+                className="flex-1 resize-none outline-none bg-transparent text-gray-900 dark:text-white py-1 px-1 mr-2 sm:mr-3 border-b border-gray-300 dark:border-gray-700 focus:border-blue-500 transition-colors"
+                style={{
+                  minHeight: "40px",
+                  fontSize: `${fontSize}px`,
                 }}
               />
               <button
                 onClick={handleSendMessage}
                 disabled={!userMessage.trim() || isTyping}
-                className="p-3 rounded-full bg-blue-600 dark:bg-blue-700 text-white hover:bg-blue-700 dark:hover:bg-blue-800 transition-colors flex items-center justify-center disabled:opacity-50"
+                className="p-2 sm:p-3 rounded-full bg-blue-600 dark:bg-blue-700 text-white hover:bg-blue-700 dark:hover:bg-blue-800 transition-colors flex items-center justify-center disabled:opacity-50"
                 aria-label="Send message"
               >
-                <FiSend className="w-5 h-5" />
+                <FiSend className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Add these CSS classes to your global CSS */}
+      {/* CSS for scrollbars and animations */}
       <style jsx global>{`
-        /* Improved scrollbar for Webkit browsers */
         .overflow-y-auto::-webkit-scrollbar {
-          width: 6px;
+          width: 5px;
         }
-        
         .overflow-y-auto::-webkit-scrollbar-track {
           background: transparent;
         }
-        
         .overflow-y-auto::-webkit-scrollbar-thumb {
           background-color: rgba(107, 114, 128, 0.5);
           border-radius: 20px;
         }
-        
         .overflow-y-auto::-webkit-scrollbar-thumb:hover {
           background-color: rgba(107, 114, 128, 0.7);
         }
-        
         @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
+          0%,
+          100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0;
+          }
         }
-        
         .animate-blink {
           animation: blink 1s infinite;
         }

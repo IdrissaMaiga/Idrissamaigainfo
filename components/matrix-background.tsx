@@ -35,9 +35,14 @@ export default function MatrixBackground({
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
+    // Responsive font size based on screen width
+    const getFontSize = () => {
+      return window.innerWidth < 640 ? 10 : 14; // Smaller font on mobile
+    };
+
     // Matrix rain effect
-    const fontSize = 14;
-    const columns = Math.ceil(canvas.width / fontSize);
+    let fontSize = getFontSize();
+    let columns = Math.ceil(canvas.width / fontSize);
     const drops: number[] = [];
 
     // Initialize drops
@@ -52,25 +57,34 @@ export default function MatrixBackground({
 
     // Render the matrix rain
     const draw = () => {
+      // Update font size and columns on resize
+      fontSize = getFontSize();
+      columns = Math.ceil(canvas.width / fontSize);
+
+      // Adjust drops array length to match columns
+      while (drops.length < columns) {
+        drops.push(Math.random() * -100);
+      }
+      while (drops.length > columns) {
+        drops.pop();
+      }
+
       // Set transparency based on theme
-      const fadeStrength = theme === "dark" ? 0.05 : 0.12; // Stronger fade in light mode
+      const fadeStrength = theme === "dark" ? 0.05 : 0.12;
       ctx.fillStyle = `rgba(0, 0, 0, ${fadeStrength})`;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Choose character color based on theme
       ctx.fillStyle =
         theme === "dark"
-          ? "rgba(59, 130, 246, 0.9)" // Blue with higher opacity in dark mode
-          : "rgba(29, 78, 216, 0.8)"; // Darker blue with higher opacity in light mode
+          ? "rgba(59, 130, 246, 0.9)"
+          : "rgba(29, 78, 216, 0.8)";
 
       ctx.font = `${fontSize}px monospace`;
 
       // Draw characters
       for (let i = 0; i < drops.length; i++) {
-        // Get random character
         const text = matrix.charAt(Math.floor(Math.random() * matrix.length));
-
-        // Draw the character
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
         // Reset drop when it reaches the bottom or randomly
@@ -78,8 +92,9 @@ export default function MatrixBackground({
           drops[i] = 0;
         }
 
-        // Move drop down at specified speed
-        drops[i] += speed;
+        // Adjust speed for smaller screens
+        const responsiveSpeed = window.innerWidth < 640 ? speed * 0.7 : speed;
+        drops[i] += responsiveSpeed;
       }
 
       requestId = window.requestAnimationFrame(draw);
