@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, TargetAndTransition } from "framer-motion";
 import { FiCode, FiCpu, FiServer } from "react-icons/fi";
 
 // Define loadingTexts outside the component
@@ -13,6 +13,22 @@ const loadingTexts = [
   "Finalizing setup...",
   "Almost ready...",
 ];
+
+// Define a custom type compatible with TargetAndTransition
+interface CustomAnimation extends TargetAndTransition {
+  scale?: number | number[];
+  opacity?: number | number[];
+  rotate?: number | number[];
+  y?: number;
+  width?: string | number;
+  transition?: {
+    duration?: number;
+    repeat?: number | typeof Infinity;
+    repeatType?: "loop" | "reverse" | "mirror";
+    ease?: string;
+    delay?: number;
+  };
+}
 
 export default function Loading() {
   const [progress, setProgress] = useState(0);
@@ -71,7 +87,7 @@ export default function Loading() {
   };
 
   // Weaken animations for mobile devices
-  const weakenAnimation = (animation: any) => {
+  const weakenAnimation = (animation: CustomAnimation): CustomAnimation => {
     // Default to full animation during SSR or if not on client
     if (!isClient) {
       return animation;
