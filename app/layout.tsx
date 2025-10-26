@@ -59,9 +59,6 @@ export default function RootLayout({
       <head>
         {/* Favicon with responsive support */}
         <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
-        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
         {/* Preconnect to Google Fonts */}
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>

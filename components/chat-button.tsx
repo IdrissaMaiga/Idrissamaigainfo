@@ -137,7 +137,7 @@ export default function ChatButton() {
 
   // Copy chat history
   const copyChat = () => {
-    if (!chatHistory.current) return;
+    if (typeof window === "undefined" || !chatHistory.current) return;
 
     const chatText = messages
       .map((msg) => `${msg.sender}: ${msg.fullText || msg.text}`)
@@ -342,7 +342,7 @@ export default function ChatButton() {
 
   // Weaken animations for mobile devices
   const weakenAnimation = (callback: () => void) => {
-    if (window.innerWidth < 640) {
+    if (typeof window === "undefined" || window.innerWidth < 640) {
       // Reduce animation intensity or skip for mobile
       callback();
     } else {

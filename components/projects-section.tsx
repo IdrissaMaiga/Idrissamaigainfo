@@ -84,7 +84,7 @@ const projects = [
       
       This project demonstrates the practical application of AI in productivity tools, combining Google OAuth integration with multiple AI services to create a comprehensive email management solution.
     `,
-    image: "/logos/gmail-ai.png",
+    image: "/logos/gmail.png",
     additionalImages: [],
     imageAlt: "Gmail AI Assistance",
     techStack: [

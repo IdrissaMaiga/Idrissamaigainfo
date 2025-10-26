@@ -20,6 +20,9 @@ export default function MatrixBackground({
   const { theme } = useTheme();
 
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === "undefined") return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
