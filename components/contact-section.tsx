@@ -230,17 +230,10 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <span className="block text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1">
-                      Available For
+                      Phone
                     </span>
                     <span className="text-gray-900 dark:text-white">
-                      <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-blue-600 dark:text-blue-400 text-xs sm:text-sm">
-                        freelance
-                      </code>{" "}
-                      and{" "}
-                      <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-green-600 dark:text-green-400 text-xs sm:text-sm">
-                        full-time
-                      </code>{" "}
-                      opportunities
+                      +36 301 377 080
                     </span>
                   </div>
                 </li>

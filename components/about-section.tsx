@@ -127,19 +127,18 @@ export default function AboutSection() {
                     className="space-y-3 sm:space-y-4 text-gray-600 dark:text-gray-400 text-sm sm:text-base"
                   >
                     <p>
-                      I'm a Full-Stack Developer and Junior Java Engineer with over 5 years of experience
-                      in building robust web applications and digital solutions. My journey began in Bamako, Mali,
-                      where I discovered my passion for technology and problem-solving.
+                      Results-driven Full Stack Software Developer with 5+ years of hands-on experience building scalable, high-performance
+                      web applications and AI-powered solutions. Expert in Java ecosystem, MERN/MEVN stack, React Native mobile
+                      development, and cloud-native architectures.
                     </p>
                     <p>
-                      I specialize in Java, Spring Boot, and modern web technologies like React.js and Node.js.
-                      My expertise extends to database management with MySQL and PostgreSQL, as well as cloud
-                      technologies using AWS.
+                      Proven track record delivering enterprise-grade applications for EU institutions and innovation platforms.
+                      Specialized in microservices architecture, RESTful API design, real-time data processing, and AI/ML integration.
+                      Strong foundation in algorithmic problem-solving, system design, and agile development methodologies.
                     </p>
                     <p>
-                      I'm passionate about creating technology-driven solutions that make a real impact.
-                      I enjoy working on projects that challenge me to learn and grow, particularly in AI
-                      development and cloud technologies.
+                      Currently pursuing B.Sc. in Computer Science Engineering (GPA: 8.7/10) while maintaining active development
+                      portfolio at creator.iditechs.com. Multilingual professional fluent in English, French, and Bambara.
                     </p>
                   </motion.div>
                 )}
@@ -154,29 +153,31 @@ export default function AboutSection() {
                     <div className="relative pl-6 sm:pl-8 border-l-2 border-blue-200 dark:border-blue-800">
                       <div className="absolute w-3 h-3 sm:w-4 sm:h-4 bg-blue-600 dark:bg-blue-400 rounded-full -left-[7px] sm:-left-[9px] top-0"></div>
                       <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200">
-                        BSc in Computer Science
+                        BSc in Computer Science Engineering
                       </h4>
                       <p className="text-blue-600 dark:text-blue-400 mb-1 text-sm sm:text-base">
-                        Obuda University, Budapest | 2023 - 2027 (Expected)
+                        Óbuda University (Óbudai Egyetem), Budapest, Hungary | Sep 2022 – Expected Feb 2027
                       </p>
                       <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base">
-                        GPA: 8.7/10
+                        GPA: 8.7/10 | Coursework: Data Structures, Algorithms, Database Systems, Web Technologies, Software Engineering
                         <br />
-                        Focusing on software engineering, data structures, algorithms, and
-                        AI development methodologies.
+                        Activities: Web Development Club, Competitive Programming, University Running Team, International Student Mentor
                       </p>
                     </div>
 
                     <div className="relative pl-6 sm:pl-8 border-l-2 border-blue-200 dark:border-blue-800">
                       <div className="absolute w-3 h-3 sm:w-4 sm:h-4 bg-blue-600 dark:bg-blue-400 rounded-full -left-[7px] sm:-left-[9px] top-0"></div>
                       <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200">
-                        Technical Certifications
+                        Professional Certifications
                       </h4>
                       <ul className="list-disc list-inside text-gray-600 dark:text-gray-400 mt-1 sm:mt-2 space-y-1 text-sm sm:text-base">
-                        <li>Spring Boot & Spring Cloud Professional</li>
-                        <li>Full-Stack Web Development</li>
-                        <li>ASP.NET Core Developer</li>
-                        <li>Cisco Networking Fundamentals</li>
+                        <li>HÖOK SHMN Mentor Camp 2025 – Hungarian Student Leadership & Mentorship Program</li>
+                        <li>INDUSAC Co-Creation Project Certificate – Innovation Ecosystem Development</li>
+                        <li>Spring Boot and Microservices Development – Comprehensive Backend Architecture</li>
+                        <li>Full-Stack Web Development with JavaScript – MERN Stack Specialization</li>
+                        <li>ASP.NET Core with Orchard Core CMS – Advanced .NET Development</li>
+                        <li>Cisco Networking Certification (CCNA) – Network Fundamentals</li>
+                        <li>Kennedy Lugar YES Program Scholar – Cultural Exchange Program, USA</li>
                       </ul>
                     </div>
                   </motion.div>
@@ -192,42 +193,30 @@ export default function AboutSection() {
                     <div className="relative pl-6 sm:pl-8 border-l-2 border-blue-200 dark:border-blue-800">
                       <div className="absolute w-3 h-3 sm:w-4 sm:h-4 bg-blue-600 dark:bg-blue-400 rounded-full -left-[7px] sm:-left-[9px] top-0"></div>
                       <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200">
-                        Junior Java Engineer
+                        Software Developer Intern
                       </h4>
                       <p className="text-blue-600 dark:text-blue-400 mb-1 text-sm sm:text-base">
-                        TechSolutions Inc. | 2022 - Present
+                        4D Consulting Kft., Budapest, Hungary | Aug 2025 – Present
                       </p>
                       <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base">
-                        Developing and maintaining Java-based applications and RESTful APIs. Working with Spring Boot,
-                        MySQL, and AWS. Collaborating in an agile team on digital transformation projects.
+                        Leading development of INDUSAC Innovation Ecosystem Matchmaking Platform connecting startups, investors,
+                        and research institutions across European innovation markets. Architecting scalable microservices backend
+                        using Spring Boot with PostgreSQL, implementing intelligent matching algorithms.
                       </p>
                     </div>
 
                     <div className="relative pl-6 sm:pl-8 border-l-2 border-blue-200 dark:border-blue-800">
                       <div className="absolute w-3 h-3 sm:w-4 sm:h-4 bg-blue-600 dark:bg-blue-400 rounded-full -left-[7px] sm:-left-[9px] top-0"></div>
                       <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200">
-                        Freelance Web Developer
+                        Full Stack Engineer
                       </h4>
                       <p className="text-blue-600 dark:text-blue-400 mb-1 text-sm sm:text-base">
-                        Self-employed | 2019 - 2022
+                        European Innovation Council and SMEs Executive Agency (EISMEA), Hungary | Jan 2025 – Jul 2025
                       </p>
                       <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base">
-                        Designed and developed websites and web applications for various clients. Technologies used included
-                        React.js, Node.js, and MongoDB. Projects ranged from e-commerce sites to custom CRM systems.
-                      </p>
-                    </div>
-
-                    <div className="relative pl-6 sm:pl-8 border-l-2 border-blue-200 dark:border-blue-800">
-                      <div className="absolute w-3 h-3 sm:w-4 sm:h-4 bg-blue-600 dark:bg-blue-400 rounded-full -left-[7px] sm:-left-[9px] top-0"></div>
-                      <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200">
-                        Programming Intern
-                      </h4>
-                      <p className="text-blue-600 dark:text-blue-400 mb-1 text-sm sm:text-base">
-                        LocalTech Startup | 2018 - 2019
-                      </p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base">
-                        Assisted the development team with code refactoring and feature implementation.
-                        Learned best practices for software development and version control.
+                        Developed horizoneurope.io, AI-powered EU funding guidance platform serving 5,000+ monthly users.
+                        Engineered smart context management engine processing 500+ funding opportunities with NLP-based categorization.
+                        Built document processing system for automated parsing of EU funding calls and application templates.
                       </p>
                     </div>
                   </motion.div>

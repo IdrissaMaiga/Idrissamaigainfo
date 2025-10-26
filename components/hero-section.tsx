@@ -7,11 +7,11 @@ import { FiGithub, FiLinkedin, FiMail, FiArrowRight } from "react-icons/fi";
 
 // Typing animation effect
 const titles = [
-  "Full-Stack Developer",
-  "Java Engineer",
-  "Spring Boot Specialist",
-  "AI Enthusiast",
-  "Cloud Technology Expert",
+  "Full Stack Engineer",
+  "Software Developer",
+  "AI Solutions Architect",
+  "Java Ecosystem Expert",
+  "Cloud-Native Developer",
 ];
 
 export default function HeroSection() {
@@ -116,7 +116,7 @@ export default function HeroSection() {
               <FiGithub className="w-6 h-6" />
             </a>
             <a
-              href="https://www.linkedin.com/in/idrissa-maiga-16581b245/"
+              href="https://linkedin.com/in/idrissa-maiga"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"

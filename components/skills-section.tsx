@@ -29,36 +29,54 @@ import {
   SiGit,
   SiPython,
   SiSharp,
-  SiDotnet
+  SiDotnet,
+  SiExpress,
+  SiFirebase
 } from "react-icons/si";
 
 // Define skill categories
 const skillCategories = [
   {
-    id: "backend",
-    name: "Backend Development",
-    icon: <FiServer className="w-6 h-6" />,
+    id: "languages",
+    name: "Programming Languages",
+    icon: <FiCode className="w-6 h-6" />,
     color: "from-blue-600 to-cyan-500",
     darkColor: "from-blue-500 to-cyan-400",
     skills: [
       { name: "Java", icon: <SiOracle />, level: 95 },
+      { name: "JavaScript", icon: <SiJavascript />, level: 90 },
+      { name: "TypeScript", icon: <SiTypescript />, level: 85 },
+      { name: "Python", icon: <SiPython />, level: 75 },
+      { name: "SQL", icon: <SiMysql />, level: 85 },
+      { name: "C#", icon: <SiSharp />, level: 70 },
+    ]
+  },
+  {
+    id: "backend",
+    name: "Backend Frameworks",
+    icon: <FiServer className="w-6 h-6" />,
+    color: "from-green-600 to-emerald-500",
+    darkColor: "from-green-500 to-emerald-400",
+    skills: [
       { name: "Spring Boot", icon: <SiSpring />, level: 90 },
       { name: "Node.js", icon: <SiNodedotjs />, level: 85 },
+      { name: "Express.js", icon: <SiExpress />, level: 80 },
       { name: ".NET Core", icon: <SiDotnet />, level: 75 },
-      { name: "C#", icon: <SiSharp />, level: 70 },
-      { name: "Python", icon: <SiPython />, level: 60 },
+      { name: "ASP.NET", icon: <SiDotnet />, level: 70 },
+      { name: "Laravel", icon: <SiNodedotjs />, level: 65 },
     ]
   },
   {
     id: "frontend",
-    name: "Frontend Development",
+    name: "Frontend Technologies",
     icon: <FiLayout className="w-6 h-6" />,
     color: "from-pink-600 to-purple-500",
     darkColor: "from-pink-500 to-purple-400",
     skills: [
-      { name: "JavaScript", icon: <SiJavascript />, level: 90 },
-      { name: "TypeScript", icon: <SiTypescript />, level: 85 },
       { name: "React.js", icon: <SiReact />, level: 88 },
+      { name: "Next.js", icon: <SiReact />, level: 85 },
+      { name: "Vue.js", icon: <SiReact />, level: 75 },
+      { name: "React Native", icon: <SiReact />, level: 80 },
       { name: "HTML5", icon: <SiHtml5 />, level: 95 },
       { name: "CSS3", icon: <SiCss3 />, level: 90 },
       { name: "Tailwind CSS", icon: <SiTailwindcss />, level: 85 },
@@ -66,39 +84,44 @@ const skillCategories = [
   },
   {
     id: "database",
-    name: "Database Management",
+    name: "Databases",
     icon: <FiDatabase className="w-6 h-6" />,
-    color: "from-green-600 to-emerald-500",
-    darkColor: "from-green-500 to-emerald-400",
+    color: "from-amber-600 to-orange-500",
+    darkColor: "from-amber-500 to-orange-400",
     skills: [
       { name: "MySQL", icon: <SiMysql />, level: 92 },
       { name: "PostgreSQL", icon: <SiMysql />, level: 88 },
       { name: "MongoDB", icon: <SiMongodb />, level: 85 },
+      { name: "Redis", icon: <SiMongodb />, level: 80 },
+      { name: "Firebase", icon: <SiFirebase />, level: 75 },
     ]
   },
   {
     id: "cloud",
     name: "Cloud & DevOps",
     icon: <FiCloud className="w-6 h-6" />,
-    color: "from-amber-600 to-orange-500",
-    darkColor: "from-amber-500 to-orange-400",
+    color: "from-indigo-600 to-purple-500",
+    darkColor: "from-indigo-500 to-purple-400",
     skills: [
       { name: "AWS", icon: <SiAmazon />, level: 80 },
       { name: "Docker", icon: <SiDocker />, level: 85 },
       { name: "Kubernetes", icon: <SiKubernetes />, level: 75 },
       { name: "Git", icon: <SiGit />, level: 90 },
+      { name: "GitHub Actions", icon: <SiGit />, level: 80 },
     ]
   },
   {
-    id: "other",
-    name: "Other Skills",
+    id: "ai",
+    name: "AI/ML Technologies",
     icon: <FiCpu className="w-6 h-6" />,
-    color: "from-red-600 to-orange-500",
-    darkColor: "from-red-500 to-orange-400",
+    color: "from-red-600 to-pink-500",
+    darkColor: "from-red-500 to-pink-400",
     skills: [
-      { name: "AI & ML", icon: <FiBox />, level: 70 },
-      { name: "RESTful APIs", icon: <FiCode />, level: 95 },
-      { name: "Microservices", icon: <FiServer />, level: 85 },
+      { name: "OpenAI GPT", icon: <FiBox />, level: 75 },
+      { name: "Mistral AI", icon: <FiBox />, level: 70 },
+      { name: "DeepSeek R1", icon: <FiBox />, level: 70 },
+      { name: "TensorFlow", icon: <FiBox />, level: 65 },
+      { name: "NLP Models", icon: <FiBox />, level: 70 },
     ]
   },
 ];

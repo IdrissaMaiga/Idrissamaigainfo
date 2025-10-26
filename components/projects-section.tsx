@@ -14,9 +14,10 @@ import {
   FiChevronLeft,
   FiChevronRight,
   FiShare2,
-  FiInfo
+  FiInfo,
+  FiBox
 } from "react-icons/fi";
-import {
+import { 
   SiReact,
   SiNodedotjs,
   SiMongodb,
@@ -25,51 +26,95 @@ import {
   SiSocketdotio,
   SiTypescript,
   SiTailwindcss,
-  SiStripe
-} from "react-icons/si";
-
-// Project data with detailed information
+  SiStripe,
+  SiSpring,
+  SiMysql,
+  SiAmazon,
+  SiDocker
+} from "react-icons/si";// Project data with detailed information
 const projects = [
   {
-    id: "filmu",
-    title: "Filmu - VOD Streaming Platform",
-    shortDesc: "A video-on-demand streaming platform with content recommendations, user profiles, and secure authentication.",
+    id: "indusac",
+    title: "INDUSAC Innovation Ecosystem Matchmaking Platform",
+    shortDesc: "Comprehensive B2B matchmaking platform connecting startups, investors, accelerators, and corporate partners across European innovation markets.",
     description: `
-      Filmu is a comprehensive VOD streaming platform designed to provide users with a Netflix-like experience. The application offers personalized content recommendations based on user viewing history and preferences, along with robust user authentication and profile management.
+      INDUSAC is a sophisticated innovation ecosystem platform designed to facilitate connections between startups, investors, research institutions, and corporate partners. The platform uses intelligent matching algorithms to create meaningful partnerships that drive innovation and economic growth across European markets.
       
-      This project was developed to combine my passion for video streaming solutions with modern mobile development technologies. It presented several technical challenges, particularly in implementing adaptive video streaming with efficient caching mechanisms.
+      This project was developed as part of my internship at 4D Consulting Kft., focusing on creating a scalable solution for the European innovation landscape. The platform handles complex matchmaking scenarios with intelligent algorithms that consider multiple parameters for optimal connections.
     `,
-    image: "/logos/Filmu.png",
-    additionalImages: [],
-    imageAlt: "Filmu VOD Platform",
+    image: "/logos/HorizonEurope Home.png",
+    additionalImages: ["/logos/HorizonEurope Login.png"],
+    imageAlt: "INDUSAC Innovation Platform",
     techStack: [
-      { name: "React Native", icon: <SiReact /> },
-      { name: "Node.js", icon: <SiNodedotjs /> },
-      { name: "MongoDB", icon: <SiMongodb /> },
-      { name: "Express", icon: <SiExpress /> },
-      { name: "JWT Auth", icon: <FiServer /> },
-      { name: "Stripe", icon: <SiStripe /> }
+      { name: "Spring Boot", icon: <SiSpring /> },
+      { name: "PostgreSQL", icon: <SiMysql /> },
+      { name: "React.js", icon: <SiReact /> },
+      { name: "TypeScript", icon: <SiTypescript /> },
+      { name: "AWS", icon: <SiAmazon /> },
+      { name: "Docker", icon: <SiDocker /> }
     ],
     features: [
-      "Personalized content recommendations based on user behavior",
-      "Secure user authentication and multi-profile support",
-      "Adaptive video streaming with quality selection",
-      "Offline download capabilities for premium subscribers",
-      "Integration with Stripe for subscription management",
-      "Cross-platform compatibility (iOS and Android)"
+      "Intelligent matchmaking algorithm considering 20+ parameters",
+      "Real-time messaging system using WebSockets",
+      "Advanced filtering and search capabilities",
+      "Admin dashboard with analytics and metrics",
+      "RESTful API for third-party integrations",
+      "Stripe payment processing for premium features"
     ],
     challenges: [
-      "Implementing efficient video streaming with minimal buffering",
-      "Designing a recommendation engine that provides relevant content",
-      "Ensuring user data security and privacy compliance",
-      "Optimizing app performance for older mobile devices"
+      "Developing sophisticated matching algorithms",
+      "Handling large datasets with 10,000+ user profiles",
+      "Ensuring real-time performance with sub-200ms response times",
+      "Implementing secure third-party integrations"
     ],
     solution: `
-      I developed a custom recommendation algorithm that analyzes viewing patterns and content metadata. For video streaming, I implemented a chunked delivery system with adaptive bitrate selection based on network conditions.
+      I implemented a multi-factor matching algorithm that analyzes industry verticals, funding stages, and strategic objectives. The backend uses Spring Boot with PostgreSQL for robust data management, while Redis provides caching for optimal performance.
       
-      User authentication was handled using JWT tokens with refresh token rotation, ensuring both security and a seamless user experience. The mobile app was extensively optimized to minimize resource usage while maintaining a smooth UI experience.
+      The frontend leverages React.js with TypeScript for type safety and better developer experience. WebSocket integration enables real-time communication between matched parties, creating an interactive platform for innovation collaboration.
     `,
-    githubLink: "https://github.com/IdrissaMaiga/Android-Filmu-ReactNative-MongoDb",
+    githubLink: "#",
+    liveLink: "#"
+  },
+  {
+    id: "gmail-ai",
+    title: "Gmail AI Assistance - Intelligent Email Management",
+    shortDesc: "AI-powered Gmail management system automating email categorization, priority detection, and response generation.",
+    description: `
+      Gmail AI Assistance is an intelligent email management platform that leverages advanced AI models to streamline email workflows. The system automatically categorizes emails, detects priorities, and generates personalized responses using cutting-edge language models.
+      
+      This project demonstrates the practical application of AI in productivity tools, combining Google OAuth integration with multiple AI services to create a comprehensive email management solution.
+    `,
+    image: "/logos/gmail-ai.png",
+    additionalImages: [],
+    imageAlt: "Gmail AI Assistance",
+    techStack: [
+      { name: "Next.js", icon: <SiReact /> },
+      { name: "TypeScript", icon: <SiTypescript /> },
+      { name: "Google OAuth", icon: <SiFirebase /> },
+      { name: "DeepSeek R1", icon: <FiBox /> },
+      { name: "Mistral AI", icon: <FiBox /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss /> }
+    ],
+    features: [
+      "Secure Google OAuth 2.0 authentication",
+      "AI-powered email categorization and prioritization",
+      "Smart response generation with multiple AI models",
+      "Batch processing handling 1,000+ emails",
+      "Intelligent rate limiting and API optimization",
+      "Comprehensive analytics dashboard"
+    ],
+    challenges: [
+      "Integrating multiple AI services efficiently",
+      "Managing API rate limits and costs",
+      "Ensuring data privacy and security",
+      "Processing large volumes of emails"
+    ],
+    solution: `
+      I implemented a hybrid AI approach combining DeepSeek R1 and Mistral AI for optimal performance. The system uses intelligent caching and batch processing to handle large email volumes while staying within API limits.
+      
+      Secure OAuth integration ensures user data privacy, while the responsive UI built with Next.js and Tailwind CSS provides an intuitive experience for managing complex email workflows.
+    `,
+    githubLink: "#",
     liveLink: "#"
   },
   {
@@ -115,47 +160,48 @@ const projects = [
     liveLink: "#"
   },
   {
-    id: "kouma",
-    title: "Kouma - AI-powered Chat App",
-    shortDesc: "Intelligent chat application with AI-powered responses and advanced natural language processing.",
+    id: "filmu",
+    title: "Filmu - Video-on-Demand Streaming Platform",
+    shortDesc: "A comprehensive VOD platform with 10,000+ video library serving 500+ concurrent users with 99.8% uptime.",
     description: `
-      Kouma is an intelligent chat application that combines traditional messaging functionality with AI-powered responses. The platform uses advanced natural language processing to understand context and provide helpful, conversational interactions.
+      Filmu is a comprehensive VOD streaming platform designed to provide users with a Netflix-like experience. The application offers personalized content recommendations based on user viewing history and preferences, along with robust user authentication and profile management.
       
-      This project was created to explore the potential of integrating AI into everyday communication tools. I wanted to build a chat application that felt natural to use while providing additional utility through intelligent assistance.
+      This project was developed to combine my passion for video streaming solutions with modern mobile development technologies. It presented several technical challenges, particularly in implementing adaptive video streaming with efficient caching mechanisms.
     `,
-    image: "/logos/kouma.png",
+    image: "/logos/Filmu.png",
     additionalImages: [],
-    imageAlt: "Kouma AI Chat App",
+    imageAlt: "Filmu VOD Platform",
     techStack: [
+      { name: "React Native", icon: <SiReact /> },
       { name: "Node.js", icon: <SiNodedotjs /> },
-      { name: "React.js", icon: <SiReact /> },
-      { name: "Socket.io", icon: <SiSocketdotio /> },
+      { name: "Express.js", icon: <SiExpress /> },
       { name: "MongoDB", icon: <SiMongodb /> },
-      { name: "Express", icon: <SiExpress /> },
-      { name: "NLP", icon: <FiServer /> }
+      { name: "AWS S3", icon: <SiAmazon /> },
+      { name: "Redis", icon: <SiMongodb /> }
     ],
     features: [
-      "Real-time chat functionality with message status indicators",
-      "AI assistant with natural language understanding",
-      "Multi-user group conversations with role-based permissions",
-      "End-to-end message encryption for privacy",
-      "Voice and image message support",
-      "Context-aware responses based on conversation history"
+      "Personalized content recommendations using collaborative filtering, increasing user engagement by 45%",
+      "Secure JWT authentication with role-based access control (RBAC) for users, creators, and administrators",
+      "Adaptive video streaming with HLS/DASH and CDN integration",
+      "CMS enabling creators to upload, edit, and monetize content with analytics dashboard",
+      "Stripe integration for subscription management, pay-per-view transactions, and creator payouts",
+      "Offline viewing capability with encrypted local storage for premium users",
+      "Cross-platform mobile app (iOS/Android) with 95% code reusability"
     ],
     challenges: [
-      "Implementing a responsive, real-time chat interface",
-      "Training the AI to provide relevant and helpful responses",
-      "Ensuring message privacy and security",
-      "Handling media attachments efficiently"
+      "Implementing efficient video streaming with minimal buffering",
+      "Designing a recommendation engine that provides relevant content",
+      "Ensuring user data security and privacy compliance",
+      "Optimizing app performance for older mobile devices"
     ],
     solution: `
-      I built the real-time communication layer using Socket.io, which provides reliable message delivery with status tracking. For the AI component, I developed a custom NLP pipeline that combines intent recognition with contextual understanding.
+      I developed a custom recommendation algorithm that analyzes viewing patterns and content metadata. For video streaming, I implemented a chunked delivery system with adaptive bitrate selection based on network conditions.
       
-      End-to-end encryption was implemented using a hybrid approach, combining asymmetric and symmetric encryption to balance security with performance. The user interface was designed to feel familiar to users of popular messaging apps while integrating AI features seamlessly.
+      User authentication was handled using JWT tokens with refresh token rotation, ensuring both security and a seamless user experience. The mobile app was extensively optimized to minimize resource usage while maintaining a smooth UI experience.
     `,
-    githubLink: "https://github.com/IdrissaMaiga/Kouma-Chat-With-Ai",
+    githubLink: "https://github.com/IdrissaMaiga/Android-Filmu-ReactNative-MongoDb",
     liveLink: "#"
-  }
+  },
 ];
 
 // Project section tabs
